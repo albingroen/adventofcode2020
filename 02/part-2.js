@@ -5,14 +5,14 @@ function main(entries) {
     const reqs = policy.split(" ")[0].split("-");
     const letter = policy.split(" ")[1];
 
-    const minReq = Number(reqs[0]);
-    const maxReq = Number(reqs[1]);
+    const startPos = Number(reqs[0]);
+    const endPos = Number(reqs[1]);
 
-    const occurences = password.split("").filter((l) => l === letter).length;
+    const startIsMatch = password[startPos - 1] === letter;
+    const endIsMatch = password[endPos - 1] === letter;
 
     const isValid =
-      occurences >= Number(minReq) &&
-      occurences <= Number(maxReq);
+      (startIsMatch && !endIsMatch) || (endIsMatch && !startIsMatch);
 
     return isValid;
   };
@@ -26,4 +26,6 @@ function main(entries) {
   return validPasswords.length;
 }
 
-console.log(main(data));
+console.log(
+  main(data)
+);
